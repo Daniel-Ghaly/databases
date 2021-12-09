@@ -2,18 +2,23 @@ CREATE DATABASE chat;
 
 USE chat;
 
+CREATE TABLE users (
+  id integer,
+  PRIMARY KEY (id),
+  name text
+);
+
 CREATE TABLE messages (
   /* Describe your table here.*/
   id integer,
-  tweet text,
+  text text,
   postTime text,
-  room text,
-  userId integer
+  roomname text,
+  userId integer,
+  FOREIGN KEY (userId) REFERENCES users(id)
 );
 
-CREATE TABLE users (
-  name text
-);
+
 
 
 
