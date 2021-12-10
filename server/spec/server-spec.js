@@ -8,15 +8,23 @@ const API_URL = 'http://127.0.0.1:3000/classes';
 
 describe('Persistent Node Chat Server', () => {
   const dbConnection = mysql.createConnection({
-    user: 'student',
-    password: 'student',
+    host: 'localhost',
+    user: 'root',
+    password: '',
     database: 'chat',
   });
 
   beforeAll((done) => {
     dbConnection.connect();
+    dbConnection.query(
+      'SELECT * FROM `messages` ',
+      function(err, results, fields) {
+        console.log('Results: ', results);
+        //dbConnection.end();
+      }
 
-       const tablename = 'messages'; // TODO: fill this out
+    );
+    const tablename = 'messages'; // TODO: fill this out
 
     /* Empty the db table before all tests so that multiple tests
      * (or repeated runs of the tests)  will not fail when they should be passing
@@ -43,7 +51,7 @@ describe('Persistent Node Chat Server', () => {
 
         /* TODO: You might have to change this test to get all the data from
          * your message table, since this is schema-dependent. */
-        const queryString = 'SELECT * FROM messages';
+        const queryString = 'SELECT text, name FROM messages INNER JOIN users ON messages.userId = users.id';
         const queryArgs = [];
 
         dbConnection.query(queryString, queryArgs, (err, results) => {
@@ -65,6 +73,8 @@ describe('Persistent Node Chat Server', () => {
 
   it('Should output all messages from the DB', (done) => {
     // Let's insert a message into the db
+    //modify query string for joins to get the data we want
+    //make template string literals like $1 $2 to be passed into queryArgs(optional)
        const queryString = '';
        const queryArgs = [];
     /* TODO: The exact query string and query args to use here

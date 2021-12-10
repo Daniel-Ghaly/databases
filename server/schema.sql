@@ -1,16 +1,20 @@
+DROP DATABASE IF EXISTS chat;
+
 CREATE DATABASE chat;
 
 USE chat;
 
 CREATE TABLE users (
-  id integer,
+  id integer NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (id),
-  name text
+  name varchar(20),
+  UNIQUE KEY unique_name (name)
 );
 
 CREATE TABLE messages (
   /* Describe your table here.*/
-  id integer,
+  id integer NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (id),
   text text,
   postTime text,
   roomname text,
